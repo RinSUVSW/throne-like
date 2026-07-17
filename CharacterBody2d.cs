@@ -15,6 +15,9 @@ public partial class CharacterBody2d : CharacterBody2D
 	public float AimSpeed = 0.5f;
 
 	[Export] AnimationPlayer ap; //change later
+	[Export] Camera2D camera;
+
+	public Vector2 cameraTarget;
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;
@@ -63,12 +66,17 @@ public partial class CharacterBody2d : CharacterBody2D
 		//Velocity = velocity;
 		MoveAndSlide();
 
+		cameraTarget = GlobalPosition;
 
 		Vector2 shootingDirection = Input.GetVector("shoot_left", "shoot_right", "shoot_up", "shoot_down");
-        if (shootingDirection == Vector2.Zero)
-        {
+		if (shootingDirection == Vector2.Zero)
+		{
 			shootingDirection = Velocity;
-        }
+		}
+		else
+		{
+			cameraTarget += (shootingDirection.Normalized() * 20);
+		}
 
         shootingDirectionReal = shootingDirectionReal.Lerp(shootingDirection, AimSpeed);
 
@@ -82,6 +90,9 @@ public partial class CharacterBody2d : CharacterBody2D
 		{
 			ap.Play("RecoilStartFire");
 		}
+
+		camera.Position = camera.Position.Lerp(cameraTarget,0.2f);
+
 
     }
 
