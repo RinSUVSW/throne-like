@@ -158,7 +158,7 @@ public partial class CharacterBody2d : CharacterBody2D
 
 		Texture2D setText;
 
-		GD.Print(deg);
+		//GD.Print(deg);
 
 		if (deg > 15f && deg <= 75)
 		{
