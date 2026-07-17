@@ -24,6 +24,7 @@ Graphics="*uid://cdjvpyeccnhpe"
 
 window/size/viewport_width=256
 window/size/viewport_height=192
+window/size/always_on_top=true
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 window/stretch/scale_mode="integer"
@@ -31,6 +32,10 @@ window/stretch/scale_mode="integer"
 [dotnet]
 
 project/assembly_name="ThroneLike"
+
+[gui]
+
+theme/custom="uid://gtmh85cp0l55"
 
 [input]
 

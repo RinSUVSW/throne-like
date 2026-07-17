@@ -1,0 +1,8 @@
+[gd_resource type="Theme" format=3 uid="uid://gtmh85cp0l55"]
+
+[ext_resource type="FontFile" uid="uid://oish4rn0nujn" path="res://assets/fonts/m3x6.ttf" id="1_qew4h"]
+
+[resource]
+Button/fonts/font = ExtResource("1_qew4h")
+Label/fonts/font = ExtResource("1_qew4h")
+RichTextLabel/fonts/normal_font = ExtResource("1_qew4h")
