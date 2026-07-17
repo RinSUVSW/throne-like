@@ -24,12 +24,33 @@ public partial class CharacterBody2d : CharacterBody2D
 	[Export]
 	Camera2D camera;
 
+	[Export]
+	Texture2D Down;
+
+	[Export]
+	Texture2D Left0;
+
+	[Export]
+	Texture2D Left1;
+
+	[Export]
+	Texture2D Left2;
+
+	[Export]
+	Texture2D Left3;
+
+	[Export]
+	Texture2D Up;
 	public Vector2 cameraTarget;
+
+	[Export]
+	Sprite2D characterSprite;
 
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;
 
+		bool doSpriteChange = true;
 		// Add the gravity.
 		//if (!IsOnFloor())
 		//{
@@ -55,6 +76,7 @@ public partial class CharacterBody2d : CharacterBody2D
 
 			m_Speed = Mathf.Lerp(m_Speed, Speed, 0.8f);
 			ArrowParent.Visible = true;
+			doSpriteChange = true;
 		}
 		else
 		{
@@ -96,6 +118,90 @@ public partial class CharacterBody2d : CharacterBody2D
 			ap.Play("RecoilStartFire");
 		}
 
+		if (Input.IsActionPressed("Fire"))
+		{
+			doSpriteChange = true;
+		}
+
+		if (doSpriteChange)
+		{
+			if (Input.IsActionPressed("Fire"))
+			{
+				ChangeSprite(shootingDirectionReal);
+			}
+			else
+			{
+				ChangeSprite(Velocity);
+			}
+		}
+
 		camera.Position = camera.Position.Lerp(cameraTarget, 0.2f);
+	}
+
+	void ChangeSprite(Vector2 vector)
+	{
+		vector = vector.Normalized();
+
+		float deg = (360 - (Mathf.RadToDeg(Mathf.Atan2(vector.Y, vector.X)))) % 360;
+		bool FlipH = false;
+
+		if ((deg > 270 && deg <= 360) || (deg > 0 && deg <= 90))
+		{
+			//Flip H true
+			FlipH = true;
+		}
+		else
+		{
+			//Flip H false
+			FlipH = false;
+		}
+
+		Texture2D setText;
+
+		GD.Print(deg);
+
+		if (deg > 15f && deg <= 75)
+		{
+			setText = Left3;
+		}
+		else if (deg > 75 && deg <= 105)
+		{
+			setText = Up;
+		}
+		else if (deg > 105 && deg <= 165)
+		{
+			setText = Left3;
+		}
+		else if (deg > 165 && deg <= 195)
+		{
+			setText = Left2;
+		}
+		else if (deg > 195 && deg <= 225)
+		{
+			setText = Left1;
+		}
+		else if (deg > 225 && deg <= 255)
+		{
+			setText = Left0;
+		}
+		else if (deg > 255 && deg <= 285)
+		{
+			setText = Down;
+		}
+		else if (deg > 285 && deg <= 315)
+		{
+			setText = Left0;
+		}
+		else if (deg > 315 && deg <= 345)
+		{
+			setText = Left1;
+		}
+		else
+		{
+			setText = Left2;
+		}
+
+		characterSprite.Texture = setText;
+		characterSprite.FlipH = FlipH;
 	}
 }
