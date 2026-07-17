@@ -13,6 +13,8 @@ public partial class CharacterBody2d : CharacterBody2D
 	[Export] Node2D GunParent;
 	private Vector2 shootingDirectionReal;
 	public float AimSpeed = 0.5f;
+
+	[Export] AnimationPlayer ap; //change later
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;
@@ -74,5 +76,15 @@ public partial class CharacterBody2d : CharacterBody2D
 
 		//GetViewport().GetCamera2D()
 
+		//ap.Play("RecoilStartFire");
+
+		if(Input.IsActionJustPressed("Fire"))
+		{
+			ap.Play("RecoilStartFire");
+		}
+
     }
+
+	
+
 }
