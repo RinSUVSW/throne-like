@@ -1,6 +1,6 @@
-using Godot;
 using System;
 using System.Runtime.CompilerServices;
+using Godot;
 
 public partial class CharacterBody2d : CharacterBody2D
 {
@@ -8,20 +8,27 @@ public partial class CharacterBody2d : CharacterBody2D
 	public const float JumpVelocity = -400.0f;
 	private float m_Speed;
 	private Vector2 MovementVector;
+
 	//public Vector2 Velocity;
-	[Export] Node2D ArrowParent;
-	[Export] Node2D GunParent;
+	[Export]
+	Node2D ArrowParent;
+
+	[Export]
+	Node2D GunParent;
 	private Vector2 shootingDirectionReal;
 	public float AimSpeed = 0.5f;
 
-	[Export] AnimationPlayer ap; //change later
-	[Export] Camera2D camera;
+	[Export]
+	AnimationPlayer ap; //change later
+
+	[Export]
+	Camera2D camera;
 
 	public Vector2 cameraTarget;
+
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;
-		
 
 		// Add the gravity.
 		//if (!IsOnFloor())
@@ -47,28 +54,31 @@ public partial class CharacterBody2d : CharacterBody2D
 			MovementVector = MovementVector.Normalized();
 
 			m_Speed = Mathf.Lerp(m_Speed, Speed, 0.8f);
-            ArrowParent.Visible = true;
-
-        }
-        else
+			ArrowParent.Visible = true;
+		}
+		else
 		{
-            MovementVector = Vector2.Zero;
-            //velocity = velocity.Lerp(Vector2.Zero, 0.2f);
-            m_Speed = Mathf.Lerp(m_Speed, 0, 0.2f);
+			MovementVector = Vector2.Zero;
+			//velocity = velocity.Lerp(Vector2.Zero, 0.2f);
+			m_Speed = Mathf.Lerp(m_Speed, 0, 0.2f);
 			ArrowParent.Visible = false;
 		}
 
-		Velocity = Velocity.Lerp(MovementVector*m_Speed, 0.5f);
+		Velocity = Velocity.Lerp(MovementVector * m_Speed, 0.5f);
 
 		ArrowParent.Rotation = (Mathf.Atan2(Velocity.Y, Velocity.X)) + Mathf.DegToRad(90);
-
 
 		//Velocity = velocity;
 		MoveAndSlide();
 
 		cameraTarget = GlobalPosition;
 
-		Vector2 shootingDirection = Input.GetVector("shoot_left", "shoot_right", "shoot_up", "shoot_down");
+		Vector2 shootingDirection = Input.GetVector(
+			"shoot_left",
+			"shoot_right",
+			"shoot_up",
+			"shoot_down"
+		);
 		if (shootingDirection == Vector2.Zero)
 		{
 			shootingDirection = Velocity;
@@ -78,24 +88,20 @@ public partial class CharacterBody2d : CharacterBody2D
 			cameraTarget += (shootingDirection.Normalized() * 20);
 		}
 
-        shootingDirectionReal = shootingDirectionReal.Lerp(shootingDirection, AimSpeed);
+		shootingDirectionReal = shootingDirectionReal.Lerp(shootingDirection, AimSpeed);
 
-        GunParent.Rotation = Mathf.Atan2(shootingDirectionReal.Y, shootingDirectionReal.X) + Mathf.DegToRad(180);
+		GunParent.Rotation =
+			Mathf.Atan2(shootingDirectionReal.Y, shootingDirectionReal.X) + Mathf.DegToRad(180);
 
 		//GetViewport().GetCamera2D()
 
 		//ap.Play("RecoilStartFire");
 
-		if(Input.IsActionJustPressed("Fire"))
+		if (Input.IsActionJustPressed("Fire"))
 		{
 			ap.Play("RecoilStartFire");
 		}
 
-		camera.Position = camera.Position.Lerp(cameraTarget,0.2f);
-
-
-    }
-
-	
-
+		camera.Position = camera.Position.Lerp(cameraTarget, 0.2f);
+	}
 }
