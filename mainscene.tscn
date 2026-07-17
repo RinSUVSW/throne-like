@@ -1,11 +1,15 @@
 [gd_scene format=3 uid="uid://vj6pndxbtg75"]
 
 [ext_resource type="Texture2D" uid="uid://y1q3y3syqwtu" path="res://Sprites/guy.png" id="1_wtdyi"]
+[ext_resource type="Texture2D" uid="uid://cw6ehade82op7" path="res://Sprites/guyFront.png" id="2_0ibrq"]
 [ext_resource type="Script" uid="uid://bijws0ijo1peb" path="res://CharacterBody2d.cs" id="2_xtb1e"]
 [ext_resource type="Texture2D" uid="uid://fd88f2vjflhb" path="res://Sprites/Arrow.png" id="3_dn5c8"]
+[ext_resource type="Texture2D" uid="uid://boxgsg8rq54wu" path="res://Sprites/guyLeft1.png" id="4_4ofsq"]
 [ext_resource type="Script" uid="uid://di7jyscwvc76t" path="res://GunParent.cs" id="4_fl65m"]
 [ext_resource type="Texture2D" uid="uid://cnjxm1ls56jll" path="res://Sprites/Gun.png" id="4_sbvtr"]
+[ext_resource type="Texture2D" uid="uid://kfcvojjruoiv" path="res://Sprites/guyLeft2.png" id="5_4p23x"]
 [ext_resource type="Texture2D" uid="uid://brba0h2yyxy8o" path="res://Sprites/Hand.png" id="5_fl65m"]
+[ext_resource type="Texture2D" uid="uid://drf8fgc856nxa" path="res://Sprites/guyLeft3.png" id="6_jtreq"]
 [ext_resource type="Texture2D" uid="uid://cbav2hx6p3otk" path="res://Sprites/guyBack.png" id="7_76yo1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yr23w"]
@@ -76,12 +80,19 @@ _data = {
 
 [node name="Character" type="Node2D" parent="." unique_id=547820959]
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="Character" unique_id=835720116 node_paths=PackedStringArray("ArrowParent", "GunParent", "ap", "camera")]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="Character" unique_id=835720116 node_paths=PackedStringArray("ArrowParent", "GunParent", "ap", "camera", "characterSprite")]
 script = ExtResource("2_xtb1e")
 ArrowParent = NodePath("ArrowParent")
 GunParent = NodePath("GunParent")
 ap = NodePath("../../Camera2D/AnimationPlayer")
 camera = NodePath("../../Camera2D")
+Down = ExtResource("2_0ibrq")
+Left0 = ExtResource("1_wtdyi")
+Left1 = ExtResource("4_4ofsq")
+Left2 = ExtResource("5_4p23x")
+Left3 = ExtResource("6_jtreq")
+Up = ExtResource("7_76yo1")
+characterSprite = NodePath("Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Character/CharacterBody2D" unique_id=2059275670]
 position = Vector2(0.38, 5.285)
