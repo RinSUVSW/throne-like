@@ -73,12 +73,7 @@ public partial class CharacterBody2d : CharacterBody2D
 
 		cameraTarget = GlobalPosition;
 
-		Vector2 shootingDirection = Input.GetVector(
-			"shoot_left",
-			"shoot_right",
-			"shoot_up",
-			"shoot_down"
-		);
+		Vector2 shootingDirection = Input.GetVector("shoot_left", "shoot_right", "shoot_up", "shoot_down");
 		if (shootingDirection == Vector2.Zero)
 		{
 			shootingDirection = Velocity;
@@ -90,8 +85,7 @@ public partial class CharacterBody2d : CharacterBody2D
 
 		shootingDirectionReal = shootingDirectionReal.Lerp(shootingDirection, AimSpeed);
 
-		GunParent.Rotation =
-			Mathf.Atan2(shootingDirectionReal.Y, shootingDirectionReal.X) + Mathf.DegToRad(180);
+		GunParent.Rotation = Mathf.Atan2(shootingDirectionReal.Y, shootingDirectionReal.X) + Mathf.DegToRad(180);
 
 		//GetViewport().GetCamera2D()
 
