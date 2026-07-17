@@ -4,10 +4,17 @@ using Godot;
 /// <summary> handles debug-related functionality with an easy off-switch. </summary>
 public partial class Debug : Node
 {
+    [Export]
+    public bool IsEnabled { get; set; } = true;
     private Graphics graphics;
 
     public override void _Input(InputEvent @event)
     {
+        if (!IsEnabled)
+        {
+            return;
+        }
+
         // note: i don't know if this is the best way to do a global singleton
         // in c#...?
         graphics ??= GetNode<Graphics>("/root/Graphics");
