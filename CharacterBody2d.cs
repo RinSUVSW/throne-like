@@ -9,7 +9,6 @@ public partial class CharacterBody2d : CharacterBody2D
 	private float m_Speed;
 	private Vector2 MovementVector;
 
-	//public Vector2 Velocity;
 	[Export]
 	Node2D ArrowParent;
 
@@ -48,29 +47,11 @@ public partial class CharacterBody2d : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		Vector2 velocity = Velocity;
-
 		bool doSpriteChange = true;
-		// Add the gravity.
-		//if (!IsOnFloor())
-		//{
-		//	velocity += GetGravity() * (float)delta;
-		//}
-
-		// Handle Jump.
-		//if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
-		//{
-		//	velocity.Y = JumpVelocity;
-		//}
-
-		// Get the input direction and handle the movement/deceleration.
-		// As good practice, you should replace UI actions with custom gameplay actions.
 		Vector2 direction = Input.GetVector("move_left", "move_right", "move_up", "move_down");
+
 		if (direction != Vector2.Zero)
 		{
-			//velocity.X = Mathf.Lerp(Velocity.X, direction.X * Speed, 1);
-			//         velocity.Y = Mathf.Lerp(Velocity.Y, direction.Y * Speed, 1f);
-
 			MovementVector = direction;
 			MovementVector = MovementVector.Normalized();
 
@@ -81,16 +62,12 @@ public partial class CharacterBody2d : CharacterBody2D
 		else
 		{
 			MovementVector = Vector2.Zero;
-			//velocity = velocity.Lerp(Vector2.Zero, 0.2f);
 			m_Speed = Mathf.Lerp(m_Speed, 0, 0.2f);
 			ArrowParent.Visible = false;
 		}
 
 		Velocity = Velocity.Lerp(MovementVector * m_Speed, 0.5f);
-
-		ArrowParent.Rotation = (Mathf.Atan2(Velocity.Y, Velocity.X)) + Mathf.DegToRad(90);
-
-		//Velocity = velocity;
+		ArrowParent.Rotation = Mathf.Atan2(Velocity.Y, Velocity.X) + Mathf.DegToRad(90);
 		MoveAndSlide();
 
 		cameraTarget = GlobalPosition;
@@ -102,16 +79,11 @@ public partial class CharacterBody2d : CharacterBody2D
 		}
 		else
 		{
-			cameraTarget += (shootingDirection.Normalized() * 20);
+			cameraTarget += shootingDirection.Normalized() * 20;
 		}
 
 		shootingDirectionReal = shootingDirectionReal.Lerp(shootingDirection, AimSpeed);
-
 		GunParent.Rotation = Mathf.Atan2(shootingDirectionReal.Y, shootingDirectionReal.X) + Mathf.DegToRad(180);
-
-		//GetViewport().GetCamera2D()
-
-		//ap.Play("RecoilStartFire");
 
 		if (Input.IsActionJustPressed("Fire"))
 		{
@@ -142,23 +114,19 @@ public partial class CharacterBody2d : CharacterBody2D
 	{
 		vector = vector.Normalized();
 
-		float deg = (360 - (Mathf.RadToDeg(Mathf.Atan2(vector.Y, vector.X)))) % 360;
+		float deg = (360 - Mathf.RadToDeg(Mathf.Atan2(vector.Y, vector.X))) % 360;
 		bool FlipH = false;
 
-		if ((deg > 270 && deg <= 360) || (deg > 0 && deg <= 90))
+		if ((deg >= 270 && deg <= 360) || (deg >= 0 && deg <= 90))
 		{
-			//Flip H true
 			FlipH = true;
 		}
 		else
 		{
-			//Flip H false
 			FlipH = false;
 		}
 
 		Texture2D setText;
-
-		//GD.Print(deg);
 
 		if (deg > 15f && deg <= 75)
 		{
@@ -205,3 +173,4 @@ public partial class CharacterBody2d : CharacterBody2D
 		characterSprite.FlipH = FlipH;
 	}
 }
+
