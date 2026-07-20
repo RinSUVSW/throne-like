@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://vj6pndxbtg75"]
 
+[ext_resource type="Texture2D" uid="uid://70ovnwnw4qcd" path="res://checkerboard.png" id="1_dn5c8"]
 [ext_resource type="PackedScene" uid="uid://j2ksglx47r3j" path="res://scenes/player/player.tscn" id="1_xtb1e"]
 
 [sub_resource type="Animation" id="Animation_fl65m"]
@@ -64,6 +65,15 @@ _data = {
 }
 
 [node name="Node2D" type="Node2D" unique_id=880742214]
+
+[node name="Background" type="Parallax2D" parent="." unique_id=486452653]
+scroll_offset = Vector2(88, 56)
+repeat_size = Vector2(16, 16)
+repeat_times = 32
+
+[node name="Checkerboard" type="Sprite2D" parent="Background" unique_id=1905490312]
+position = Vector2(64, 56)
+texture = ExtResource("1_dn5c8")
 
 [node name="Player" parent="." unique_id=120615451 node_paths=PackedStringArray("ap", "camera") instance=ExtResource("1_xtb1e")]
 ap = NodePath("../Camera2D/AnimationPlayer")
