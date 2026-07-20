@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://j2ksglx47r3j"]
+
+[ext_resource type="Script" uid="uid://bijws0ijo1peb" path="res://scenes/player/Player.cs" id="1_fm80t"]
+[ext_resource type="Texture2D" uid="uid://dydd7o6l1p7rx" path="res://scenes/player/RunningSpriteSheet.png" id="8_lgqa7"]
+[ext_resource type="Texture2D" uid="uid://fd88f2vjflhb" path="res://Sprites/Arrow.png" id="9_8ydkj"]
+[ext_resource type="Script" uid="uid://di7jyscwvc76t" path="res://scenes/player/GunParent.cs" id="10_3j4b4"]
+[ext_resource type="Texture2D" uid="uid://cnjxm1ls56jll" path="res://Sprites/Gun.png" id="11_yj68g"]
+[ext_resource type="Texture2D" uid="uid://brba0h2yyxy8o" path="res://scenes/player/Hand.png" id="12_ioxgp"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_75vfm"]
+load_path = "res://.godot/imported/guyFront.png-3c085231c66721296714dd8c6f7565fb.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0owmy"]
+load_path = "res://.godot/imported/guy.png-7e1e822d5465e34f21ef3d8e6a613be7.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qek5x"]
+load_path = "res://.godot/imported/guyLeft1.png-e74435dcd0d4a98cbda1902635db57c6.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5gtgg"]
+load_path = "res://.godot/imported/guyLeft2.png-0e4c64b2ce05df26b874386b6628e76d.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h17s1"]
+load_path = "res://.godot/imported/guyLeft3.png-5d8fb6b0e94cd98416c753568c520ea4.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_je7p5"]
+load_path = "res://.godot/imported/guyBack.png-8d77144ca2b1c86cc701efeba9717aa3.ctex"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yr23w"]
+radius = 2.0
+
+[node name="Player" type="CharacterBody2D" unique_id=120615451 node_paths=PackedStringArray("ArrowParent", "GunParent", "characterSprite")]
+script = ExtResource("1_fm80t")
+ArrowParent = NodePath("ArrowParent")
+GunParent = NodePath("GunParent")
+Down = SubResource("CompressedTexture2D_75vfm")
+Left0 = SubResource("CompressedTexture2D_0owmy")
+Left1 = SubResource("CompressedTexture2D_qek5x")
+Left2 = SubResource("CompressedTexture2D_5gtgg")
+Left3 = SubResource("CompressedTexture2D_h17s1")
+Up = SubResource("CompressedTexture2D_je7p5")
+characterSprite = NodePath("Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=128558958]
+position = Vector2(0.38, 5.285)
+shape = SubResource("CircleShape2D_yr23w")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=702289265]
+texture = ExtResource("8_lgqa7")
+hframes = 5
+vframes = 5
+frame = 4
+
+[node name="ArrowParent" type="Node2D" parent="." unique_id=1474630818]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArrowParent" unique_id=1198299599]
+modulate = Color(1, 1, 1, 0.6156863)
+position = Vector2(0, -6.535)
+texture = ExtResource("9_8ydkj")
+offset = Vector2(-0.46, 0)
+
+[node name="GunParent" type="Node2D" parent="." unique_id=1366079717 node_paths=PackedStringArray("GunSprite", "HandSpriteTop", "HandSpriteBottom")]
+position = Vector2(-0.825, 1.52)
+script = ExtResource("10_3j4b4")
+GunSprite = NodePath("GunSprite")
+HandSpriteTop = NodePath("HandSprite1")
+HandSpriteBottom = NodePath("HandSprite2")
+
+[node name="GunSprite" type="Sprite2D" parent="GunParent" unique_id=1784129386]
+texture = ExtResource("11_yj68g")
+offset = Vector2(-5.52, 0)
+
+[node name="HandSprite1" type="Sprite2D" parent="GunParent" unique_id=1551926042]
+texture = ExtResource("12_ioxgp")
+offset = Vector2(-4.075, 2.19)
+
+[node name="HandSprite2" type="Sprite2D" parent="GunParent" unique_id=364111843]
+z_index = -1
+texture = ExtResource("12_ioxgp")
+offset = Vector2(-5.725, 1.565)
+
+[node name="Line2D" type="Line2D" parent="GunParent" unique_id=68905748]
+visible = false
+position = Vector2(-64.64, -9.44)
+points = PackedVector2Array(54.825, 8.48, -44.175, 8.48)
+width = 0.3
+default_color = Color(1, 0.2627451, 0.29803923, 1)
