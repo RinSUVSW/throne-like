@@ -45,6 +45,15 @@ public partial class CharacterBody2d : CharacterBody2D
 	[Export]
 	Sprite2D characterSprite;
 
+	public int facingDir = 0; //0 is up, 2 is left, 5 is down, 8 is right
+	public int Animframe = 0;
+	public int AnimTimer = 0;
+
+	[Export]
+	public int AnimSpeed = 8;
+
+	public bool running;
+
 	public override void _PhysicsProcess(double delta)
 	{
 		bool doSpriteChange = true;
@@ -58,9 +67,11 @@ public partial class CharacterBody2d : CharacterBody2D
 			m_Speed = Mathf.Lerp(m_Speed, Speed, 0.8f);
 			ArrowParent.Visible = true;
 			doSpriteChange = true;
+			running = true;
 		}
 		else
 		{
+			running = false;
 			MovementVector = Vector2.Zero;
 			m_Speed = Mathf.Lerp(m_Speed, 0, 0.2f);
 			ArrowParent.Visible = false;
@@ -99,18 +110,55 @@ public partial class CharacterBody2d : CharacterBody2D
 		{
 			if (Input.IsActionPressed("Fire"))
 			{
-				ChangeSprite(shootingDirectionReal);
+				ChangeDir(shootingDirectionReal);
 			}
 			else
 			{
-				ChangeSprite(Velocity);
+				ChangeDir(Velocity);
 			}
 		}
 
-		camera.Position = camera.Position.Lerp(cameraTarget, 0.2f);
+		camera.Position = camera.Position.Lerp(cameraTarget, 1f); //switch to moveTowards
+
+		DoAnim();
 	}
 
-	void ChangeSprite(Vector2 vector)
+	public void DoAnim()
+	{
+		AnimTimer++;
+		if (AnimTimer >= AnimSpeed)
+		{
+			if (!running)
+			{
+				Animframe = 0;
+			}
+			else
+			{
+				Animframe++;
+			}
+			AnimTimer = 0;
+		}
+
+		if (Animframe > 3)
+		{
+			Animframe = 0;
+		}
+
+		int fixedDir = 0;
+
+		if (facingDir > 5)
+		{
+			fixedDir = 10 - facingDir;
+		}
+		else
+		{
+			fixedDir = facingDir;
+		}
+
+		characterSprite.Frame = (fixedDir * 4) + Animframe;
+	}
+
+	void ChangeDir(Vector2 vector)
 	{
 		vector = vector.Normalized();
 
@@ -127,50 +175,62 @@ public partial class CharacterBody2d : CharacterBody2D
 		}
 
 		Texture2D setText;
+		int SetDir;
 
 		if (deg > 15f && deg <= 75)
 		{
 			setText = Left3;
+			SetDir = 9;
 		}
 		else if (deg > 75 && deg <= 105)
 		{
 			setText = Up;
+			SetDir = 0;
 		}
 		else if (deg > 105 && deg <= 165)
 		{
 			setText = Left3;
+			SetDir = 1;
 		}
 		else if (deg > 165 && deg <= 195)
 		{
 			setText = Left2;
+			SetDir = 2;
 		}
 		else if (deg > 195 && deg <= 225)
 		{
 			setText = Left1;
+			SetDir = 3;
 		}
 		else if (deg > 225 && deg <= 255)
 		{
 			setText = Left0;
+			SetDir = 4;
 		}
 		else if (deg > 255 && deg <= 285)
 		{
 			setText = Down;
+			SetDir = 5;
 		}
 		else if (deg > 285 && deg <= 315)
 		{
 			setText = Left0;
+			SetDir = 6;
 		}
 		else if (deg > 315 && deg <= 345)
 		{
 			setText = Left1;
+			SetDir = 7;
 		}
 		else
 		{
 			setText = Left2;
+			SetDir = 8;
 		}
 
-		characterSprite.Texture = setText;
-		characterSprite.FlipH = FlipH;
+		//characterSprite.Texture = setText;
+		facingDir = SetDir;
+		characterSprite.FlipH = SetDir > 5;
+		//characterSprite.FlipH = FlipH;
 	}
 }
-
