@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://j80ck0a1j2r0"]
+
+[ext_resource type="Script" uid="uid://c6h0iqneyanc0" path="res://scenes/prototype/gun_upgrade_system/gun_upgrade_system.gd" id="1_ug3nk"]
+[ext_resource type="Script" uid="uid://crhw11esdqgi2" path="res://scenes/prototype/gun_upgrade_system/bullet_spawn_point.gd" id="2_ywm6n"]
+[ext_resource type="Script" uid="uid://thij11l1k265" path="res://scenes/prototype/gun_upgrade_system/bullet_resource.gd" id="3_dllp5"]
+[ext_resource type="Texture2D" uid="uid://be6jxi2rwhaw8" path="res://assets/images/debug/arrow.png" id="3_s8vum"]
+[ext_resource type="Resource" uid="uid://c4xcmybv3ic6t" path="res://scenes/prototype/gun_upgrade_system/bullet_types/basic_bullet.tres" id="4_ywm6n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uj04i"]
+size = Vector2(48, 48)
+
+[node name="GunUpgradeSystem" type="Node2D" unique_id=143191307]
+script = ExtResource("1_ug3nk")
+
+[node name="BulletSpawnPoint" type="Node2D" parent="." unique_id=1883036716]
+position = Vector2(16, 88)
+script = ExtResource("2_ywm6n")
+bullet_types = Array[ExtResource("3_dllp5")]([ExtResource("4_ywm6n"), ExtResource("4_ywm6n"), ExtResource("4_ywm6n"), ExtResource("4_ywm6n"), ExtResource("4_ywm6n")])
+
+[node name="Arrow" type="Sprite2D" parent="BulletSpawnPoint" unique_id=1218580255]
+modulate = Color(1, 0, 1, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_s8vum")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=146297801]
+position = Vector2(192, 88)
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D" unique_id=1876971370]
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1627650783]
+shape = SubResource("RectangleShape2D_uj04i")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1377960336]
+build_mode = 1
+polygon = PackedVector2Array(-192, -88, 64, -88, 64, 104, -192, 104)

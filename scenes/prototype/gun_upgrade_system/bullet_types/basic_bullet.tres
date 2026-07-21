@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BulletResource" format=3 uid="uid://c4xcmybv3ic6t"]
+
+[ext_resource type="PackedScene" uid="uid://30evvahsj7pd" path="res://scenes/prototype/gun_upgrade_system/basic_bullet.tscn" id="1_51fq2"]
+[ext_resource type="Script" uid="uid://thij11l1k265" path="res://scenes/prototype/gun_upgrade_system/bullet_resource.gd" id="1_piaos"]
+
+[resource]
+script = ExtResource("1_piaos")
+scene = ExtResource("1_51fq2")
+metadata/_custom_type_script = "uid://thij11l1k265"
