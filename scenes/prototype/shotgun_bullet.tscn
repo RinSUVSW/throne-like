@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://x67k1hc6jtm"]
+
+[ext_resource type="Script" uid="uid://c4ytjdefb1meu" path="res://scenes/prototype/shotgun_bullet.gd" id="1_38pth"]
+[ext_resource type="PackedScene" uid="uid://30evvahsj7pd" path="res://scenes/prototype/gun_upgrade_system/basic_bullet.tscn" id="2_1765y"]
+
+[node name="ShotgunBullet" type="Node2D" unique_id=1193575989]
+script = ExtResource("1_38pth")
+_basic_bullet_scene = ExtResource("2_1765y")

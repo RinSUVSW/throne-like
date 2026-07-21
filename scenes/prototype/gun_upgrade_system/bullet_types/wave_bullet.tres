@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BulletResource" format=3 uid="uid://vo7q3x3cv5jp"]
+
+[ext_resource type="PackedScene" uid="uid://cl4vgk0w7qpqi" path="res://scenes/prototype/gun_upgrade_system/wave_bullet.tscn" id="1_sohkt"]
+[ext_resource type="Script" uid="uid://thij11l1k265" path="res://scenes/prototype/gun_upgrade_system/bullet_resource.gd" id="2_qfea0"]
+
+[resource]
+script = ExtResource("2_qfea0")
+name = "wave bullet"
+scene = ExtResource("1_sohkt")
+metadata/_custom_type_script = "uid://thij11l1k265"

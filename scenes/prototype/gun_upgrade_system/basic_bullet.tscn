@@ -129,11 +129,10 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_uj04i"]
 radius = 8.0
 
-[node name="Bullet" type="Node2D" unique_id=928658560 node_paths=PackedStringArray("_anim", "_area", "_delay_timer")]
+[node name="Bullet" type="Node2D" unique_id=928658560 node_paths=PackedStringArray("_anim", "_area")]
 script = ExtResource("1_nn6mr")
 _anim = NodePath("AnimationPlayer")
 _area = NodePath("Area2D")
-_delay_timer = NodePath("DelayTimer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1725183038]
 libraries/ = SubResource("AnimationLibrary_s8vum")

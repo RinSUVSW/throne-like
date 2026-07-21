@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://cl4vgk0w7qpqi"]
+
+[ext_resource type="Script" uid="uid://cq8vup4gqrv2a" path="res://scenes/prototype/gun_upgrade_system/wave_bullet.gd" id="1_ieuft"]
+[ext_resource type="PackedScene" uid="uid://d4lvd6vu0gqc3" path="res://scenes/prototype/gun_upgrade_system/radial_burst_particle.tscn" id="2_g3v1w"]
+[ext_resource type="Texture2D" uid="uid://dtkedt4g1nj0q" path="res://assets/images/debug/circle.png" id="2_yohdj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uj04i"]
+radius = 8.0
+
+[node name="WaveBullet" type="Node2D" unique_id=919195656 node_paths=PackedStringArray("_area")]
+modulate = Color(0.69803923, 0.5647059, 1, 1)
+script = ExtResource("1_ieuft")
+_die_particle = ExtResource("2_g3v1w")
+_area = NodePath("Offset/Area2D")
+
+[node name="Offset" type="Node2D" parent="." unique_id=1979927978]
+
+[node name="Circle" type="Sprite2D" parent="Offset" unique_id=854049875]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_yohdj")
+
+[node name="Area2D" type="Area2D" parent="Offset" unique_id=1201266390]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Offset/Area2D" unique_id=918722942]
+shape = SubResource("CircleShape2D_uj04i")

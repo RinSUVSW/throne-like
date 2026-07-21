@@ -1,16 +1,14 @@
-extends Node2D
+extends Bullet
 
 
 @export var _anim: AnimationPlayer
 @export var _area: Area2D
 @export var _speed: float = 1.0
-@export var _delay_timer: Timer
-var player: Node2D
 
 
 func _ready() -> void:
+	fired.connect(_fired)
 	_area.body_entered.connect(_body_entered)
-
 	_set_collision_enabled(false)
 	visible = false
 	_speed = 0.0
@@ -26,21 +24,15 @@ func _body_entered(_other) -> void:
 	_anim.play("die")
 
 
-func setup(p: Node2D, info: BulletSpawnPoint.BulletInfo) -> void:
-	player = p
+func _fired():
+	_set_collision_enabled(true)
+	visible = true
+	_speed = 1.0
+	rotation = player.rotation
+	global_position = player.global_position
 
-	_delay_timer.wait_time = 0.01 + info.index_of_this_type * 0.05
-	_delay_timer.timeout.connect(func():
-		_set_collision_enabled(true)
-		visible = true
-		_speed = 1.0
-		rotation = player.rotation
-		global_position = player.global_position
-
-		if info.global_index % 3 == 2:
-			modulate = Color.RED
-	)
-	_delay_timer.start()
+	if info.global_index % 3 == 2:
+		modulate = Color.RED
 
 
 func _set_collision_enabled(b: bool) -> void:

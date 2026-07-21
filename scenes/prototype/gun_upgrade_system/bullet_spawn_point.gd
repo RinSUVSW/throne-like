@@ -26,21 +26,33 @@ func _process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if not event.is_action_pressed("Fire"):
-		return
+	if event.is_action_pressed("Fire"):
+		_fire()
 
+
+## perform the action "fire gun's." this pulls the trigger and fires everything
+## the player has on hand.
+func _fire() -> void:
 	for i in bullet_types.size():
 		var res: BulletResource = bullet_types[i]
 		var b: Node2D = res.scene.instantiate()
-		get_tree().current_scene.add_child(b)
+		fire_bullet(b, i, res)
 
-		var info = BulletInfo.new()
-		info.index = i
-		info.index_of_this_type = bullet_types.slice(0, i).count(res)
-		info.global_index = _global_index
 
-		b.setup(self, info)
-		_global_index += 1
+## fire a single bullet.
+## can optionally pass in index and bullet_resource, which will be used to build
+## a BulletInfo. if those aren't passed, the BulletInfo will have incomplete
+## information.
+func fire_bullet(bullet: Node2D, index: int = 0, bullet_resource = null) -> void:
+	get_tree().current_scene.add_child(bullet)
+
+	var info = BulletInfo.new()
+	info.index = index
+	info.index_of_this_type = bullet_types.slice(0, index).count(bullet_resource)
+	info.global_index = _global_index
+
+	bullet.setup(self, info)
+	_global_index += 1
 
 
 class BulletInfo:
