@@ -39,6 +39,9 @@ public partial class Player : CharacterBody2D
 
 	public bool running;
 
+	[Export]
+	public GpuParticles2D particles;
+
 	public override void _PhysicsProcess(double delta)
 	{
 		bool doSpriteChange = true;
@@ -102,10 +105,13 @@ public partial class Player : CharacterBody2D
 				ChangeDir(Velocity);
 			}
 		}
+		DoAnim();
+
+		particles.ZIndex = (facingDir < 2 || facingDir > 8) ? 0 : -1;
+
+		particles.AmountRatio = running ? 1.0f : 0.0f;
 
 		camera.Position = camera.Position.Lerp(cameraTarget, 1f); //switch to moveTowards
-
-		DoAnim();
 	}
 
 	public void DoAnim()
@@ -195,4 +201,3 @@ public partial class Player : CharacterBody2D
 		characterSprite.FlipH = SetDir > 5;
 	}
 }
-
