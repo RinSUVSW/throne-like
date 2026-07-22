@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://bmk8y6qfu2eba"]
+
+[ext_resource type="Script" uid="uid://dwvgh1qx4ta1p" path="res://scenes/Enemy/Enemy.cs" id="1_vamnb"]
+[ext_resource type="Texture2D" uid="uid://dydd7o6l1p7rx" path="res://scenes/player/RunningSpriteSheet.png" id="2_ijlxo"]
+[ext_resource type="Texture2D" uid="uid://leqx4kon12xc" path="res://scenes/player/Dust_Particle.png" id="3_o21vr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yr23w"]
+radius = 2.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yr23w"]
+size = Vector2(8.298755, 4.362416)
+
+[sub_resource type="Gradient" id="Gradient_qek5x"]
+offsets = PackedFloat32Array(0.11413044, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.21568628, 0.21568628, 0.21568628, 0.62352943)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qek5x"]
+gradient = SubResource("Gradient_qek5x")
+
+[sub_resource type="Curve" id="Curve_5gtgg"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.9864865, 0), -3.2147043, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5gtgg"]
+curve = SubResource("Curve_5gtgg")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0owmy"]
+particle_flag_disable_z = true
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 0, 0)
+radial_velocity_min = 0.99997765
+radial_velocity_max = 7.9999776
+gravity = Vector3(0, 7.56, 0)
+scale_min = 0.5
+scale_max = 0.7
+scale_curve = SubResource("CurveTexture_5gtgg")
+color_ramp = SubResource("GradientTexture1D_qek5x")
+
+[node name="TestEnemy" type="CharacterBody2D" unique_id=120615451 node_paths=PackedStringArray("Hitbox", "Hurtbox", "Visionbox")]
+script = ExtResource("1_vamnb")
+Hitbox = NodePath("ContactArea")
+Hurtbox = NodePath("HurtboxArea")
+Visionbox = NodePath("VisionArea")
+
+[node name="ContactArea" type="Area2D" parent="." unique_id=1015798047]
+
+[node name="ContactHitBox" type="CollisionShape2D" parent="ContactArea" unique_id=128558958]
+z_index = 2
+position = Vector2(0.45, 5.285)
+scale = Vector2(1.205, 1.205)
+shape = SubResource("CircleShape2D_yr23w")
+debug_color = Color(0.99183065, 0, 0.26649618, 0.41960785)
+
+[node name="VisionArea" type="Area2D" parent="." unique_id=713626337]
+
+[node name="VisionBox" type="CollisionShape2D" parent="VisionArea" unique_id=2024071875]
+z_index = 2
+position = Vector2(0, 4.545)
+scale = Vector2(40.75, 40.75)
+shape = SubResource("CircleShape2D_yr23w")
+debug_color = Color(0.45747584, 0.847729, 0.9999998, 0.41960785)
+
+[node name="HurtboxArea" type="Area2D" parent="." unique_id=150841675]
+
+[node name="Hurtbox" type="CollisionShape2D" parent="HurtboxArea" unique_id=928854806]
+z_index = 2
+position = Vector2(0, 1.4999998)
+scale = Vector2(1.205, 2.98)
+shape = SubResource("RectangleShape2D_yr23w")
+debug_color = Color(0.8814532, 0.3356128, 0.09930626, 0.41960785)
+
+[node name="testhurtbox" type="CollisionShape2D" parent="." unique_id=2092309448]
+z_index = 2
+position = Vector2(0, 1.4999998)
+scale = Vector2(1.205, 2.98)
+shape = SubResource("RectangleShape2D_yr23w")
+debug_color = Color(0.8814532, 0.3356128, 0.09930626, 0.41960785)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=702289265]
+modulate = Color(1, 0, 0, 1)
+texture = ExtResource("2_ijlxo")
+hframes = 5
+vframes = 5
+frame = 16
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Sprite2D" unique_id=398651033]
+visible = false
+z_index = -1
+position = Vector2(0.52, 7.11)
+amount = 5
+amount_ratio = 0.0
+texture = ExtResource("3_o21vr")
+lifetime = 0.22
+preprocess = 0.25
+speed_scale = 0.91
+explosiveness = 0.08
+randomness = 0.33
+draw_order = 2
+process_material = SubResource("ParticleProcessMaterial_0owmy")
