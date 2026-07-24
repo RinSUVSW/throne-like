@@ -10,6 +10,9 @@ radius = 2.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yr23w"]
 size = Vector2(8.298755, 4.362416)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vamnb"]
+size = Vector2(3.439, 1.472)
+
 [sub_resource type="Gradient" id="Gradient_qek5x"]
 offsets = PackedFloat32Array(0.11413044, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0.21568628, 0.21568628, 0.21568628, 0.62352943)
@@ -72,9 +75,9 @@ debug_color = Color(0.8814532, 0.3356128, 0.09930626, 0.41960785)
 
 [node name="testhurtbox" type="CollisionShape2D" parent="." unique_id=2092309448]
 z_index = 2
-position = Vector2(0, 1.4999998)
+position = Vector2(0, 5.825)
 scale = Vector2(1.205, 2.98)
-shape = SubResource("RectangleShape2D_yr23w")
+shape = SubResource("RectangleShape2D_vamnb")
 debug_color = Color(0.8814532, 0.3356128, 0.09930626, 0.41960785)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=702289265]

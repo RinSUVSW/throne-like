@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://70ovnwnw4qcd" path="res://checkerboard.png" id="1_dn5c8"]
 [ext_resource type="PackedScene" uid="uid://j2ksglx47r3j" path="res://scenes/player/player.tscn" id="1_xtb1e"]
+[ext_resource type="PackedScene" uid="uid://bmk8y6qfu2eba" path="res://scenes/Enemy/enemy.tscn" id="3_dn5c8"]
 
 [sub_resource type="Animation" id="Animation_fl65m"]
 length = 0.001
@@ -85,3 +86,12 @@ position_smoothing_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera2D" unique_id=269749947]
 libraries/ = SubResource("AnimationLibrary_8bn17")
+
+[node name="TestEnemy" parent="." unique_id=164685537 instance=ExtResource("3_dn5c8")]
+position = Vector2(133, 14)
+
+[node name="TestEnemy2" parent="." unique_id=1206481161 instance=ExtResource("3_dn5c8")]
+position = Vector2(192, 51)
+
+[node name="TestEnemy3" parent="." unique_id=1760365282 instance=ExtResource("3_dn5c8")]
+position = Vector2(142, 68)
